@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.ecommerce.demo.model.Product;
 
 @Repository
-public interface ProductRepo extends JpaRepository<Product, Integer>{
+public interface ProductRepo extends JpaRepository<Product, Long>{
 	
 	@Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%'))" +
 	"OR LOWER(p.description) LIKE LOWER(CONCAT('%', :keyword, '%'))" +

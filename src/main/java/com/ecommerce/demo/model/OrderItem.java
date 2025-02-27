@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,24 +12,42 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class CartItem {
-	
+public class OrderItem {
+	public OrderItem() {
+		super();
+	}
+
+	public OrderItem(Order order, Product product, int quantity, BigDecimal price) {
+		super();
+		this.order = order;
+		this.product = product;
+		this.quantity = quantity;
+		this.price = price;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	private int quantity;
-	private BigDecimal unitPrice;
-	private BigDecimal totalPrice;
-	
+	private BigDecimal price;
+
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cart_id")
-	private Cart cart;
-	
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	private Order order;
+
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
+
+	public OrderItem(Long id, int quantity, BigDecimal price, Order order, Product product) {
+		super();
+		this.id = id;
+		this.quantity = quantity;
+		this.price = price;
+		this.order = order;
+		this.product = product;
+	}
 
 	public Long getId() {
 		return id;
@@ -48,28 +65,20 @@ public class CartItem {
 		this.quantity = quantity;
 	}
 
-	public BigDecimal getUnitPrice() {
-		return unitPrice;
+	public BigDecimal getPrice() {
+		return price;
 	}
 
-	public void setUnitPrice(BigDecimal unitPrice) {
-		this.unitPrice = unitPrice;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
+	public Order getOrder() {
+		return order;
 	}
 
-	public void setTotalPrice() {
-		this.totalPrice = this.unitPrice.multiply(new BigDecimal(quantity));
-	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	public Product getProduct() {
@@ -79,5 +88,5 @@ public class CartItem {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	
+
 }

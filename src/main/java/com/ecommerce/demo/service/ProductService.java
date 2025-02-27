@@ -20,7 +20,7 @@ public class ProductService {
 		return repo.findAll();
 	}
 	
-	public Product getProductById(int prodId) {
+	public Product getProductById(Long prodId) {
 		return repo.findById(prodId).orElseThrow(() -> new ProductNotFoundException("Product not found!"));
 	}
 	
@@ -39,7 +39,7 @@ public class ProductService {
 		//return repo.save(p);
 	}
 
-	public void delProductById(int prodId) {
+	public void delProductById(Long prodId) {
 		repo.findById(prodId).ifPresentOrElse(repo::delete, () -> {throw new ProductNotFoundException("Product not present to delete!");});
 	}
 

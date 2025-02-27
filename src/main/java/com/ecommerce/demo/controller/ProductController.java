@@ -33,7 +33,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/product/{prodId}")
-	public ResponseEntity<ApiResponse> getProductsById(@PathVariable int prodId) {
+	public ResponseEntity<ApiResponse> getProductsById(@PathVariable Long prodId) {
 		try {
 			Product product = service.getProductById(prodId);
 			return ResponseEntity.ok(new ApiResponse("Success", product));
@@ -59,7 +59,7 @@ public class ProductController {
 	}
 
 	@DeleteMapping("/product/{prodId}")
-	public ResponseEntity<ApiResponse> delProductByName(@PathVariable int prodId) {
+	public ResponseEntity<ApiResponse> delProductByName(@PathVariable Long prodId) {
 		try {
 			service.delProductById(prodId);
 			return ResponseEntity.ok(new ApiResponse("Success", null));
